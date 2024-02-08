@@ -12,6 +12,6 @@ env:
 jobs:
   deploy:
     steps:
-      - uses: cloudbees-io/helm-install@v1
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: deployStep
         run: kubectl get namespaces
