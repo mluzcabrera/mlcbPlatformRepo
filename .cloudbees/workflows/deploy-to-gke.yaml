@@ -1,15 +1,101 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: Deploy to GKE
+name: Build and deploy demo-app
 on:
   push:
     branches:
-      - main
+      - "**"
+env:
+  APP_NAME: demo-app
+  BUILD: "false"
+  DEPLOY: "true"
 jobs:
   build:
+    #if: ${{env.BUILD}}
     steps:
-      - name: Say hello
-        uses: docker://golang:1.20.3-alpine3.17
-        shell: sh
+      - name: Checkout code
+        uses: cloudbees-io/checkout@v1
+      - name: Handle safe directory errors
+        uses: docker://alpine/git:latest
         run: |
-          echo "hello world"
+          git config --global --add safe.directory '*'
+      - name: Install dependencies
+        uses: docker://golang:1.20
+        run: go mod download
+      - name: Run tests
+        uses: docker://golang:1.20
+        run: go test -v ./...
+      - name: Run build
+        uses: docker://golang:1.20
+        run: go build -v -buildvcs=false
+      - name: Configure container registry credentials
+        id: dockerconfig
+        uses: cloudbees-io/configure-oci-credentials@v1
+        with:
+          registry: ${{ vars.DOCKER_REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push container
+        uses: cloudbees-io/kaniko@v1
+        with:
+          dockerfile: Dockerfile
+          context: .
+          destination: ${{ secrets.DOCKERHUB_USER }}/${{ env.APP_NAME }}:${{
+            cloudbees.scm.sha }}
+          labels: maintainer=Greg Maxey,version=${{ cloudbees.scm.sha }}
+  deploy:
+    #if: ${{env.DEPLOY}}
+    environment: qa
+    steps:
+      - uses: cloudbees-io/checkout@v1
+        name: Checkout code
+      - uses: docker://alpine:latest
+        name: Add kubectl config file
+        run: >
+          rm -rf ${HOME}/.kube
+
+          mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config << EOF
+
+          apiVersion: v1
+
+          clusters:
+
+          - cluster:
+              certificate-authority-data: ${{ secrets.CLUSTER_CERT }}
+              server: ${{ secrets.CLUSTER_SERVER }}
+            name: ${{ secrets.CLUSTER_NAME }}
+          contexts:
+
+          - context:
+              cluster: ${{ secrets.CLUSTER_NAME }}
+              user: ${{ secrets.CLUSTER_NAME }}
+            name: ${{ secrets.CLUSTER_NAME }}
+          current-context: ${{ secrets.CLUSTER_NAME }}
+
+          kind: Config
+
+          preferences: {}
+
+          users:
+
+          - name: ${{ secrets.CLUSTER_NAME }}
+            user:
+              exec:
+                apiVersion: client.authentication.k8s.io/v1beta1
+                command: gke-gcloud-auth-plugin
+                installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
+                  https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+                provideClusterInfo: true
+          EOF
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
+        name: test connection
+        run: kubectl get namespaces
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
+        name: Create target namespace
+        run: kubectl create namespace qa
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
+        name: Deploy helm chart
+        kind: deploy
+        run: helm install demo-app ./chart -f values.yaml
+    needs:
+      - build
