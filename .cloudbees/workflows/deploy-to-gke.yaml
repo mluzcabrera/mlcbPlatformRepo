@@ -6,8 +6,8 @@ on:
     branches:
       - "**"
 jobs:
-  deploy:
+  job1:
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: deployStep
-        run: kubectl get namespaces
+        name: step1
+        run: echo 1234
