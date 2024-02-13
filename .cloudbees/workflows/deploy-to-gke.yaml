@@ -11,3 +11,6 @@ jobs:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: step1
         run: echo ${{ vars.mlcbUserName }}
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
+        name: step1
+        run: echo ${{ secrets.mlcbPassword }}
