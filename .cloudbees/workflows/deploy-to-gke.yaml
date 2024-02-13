@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: step1
-        run: kubectl help
+        run: gcloud config set project caca
