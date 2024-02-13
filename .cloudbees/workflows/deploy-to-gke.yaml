@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: step1
-        run: gcloud config set project caca
+        run: gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1 --project flow-testing-project
