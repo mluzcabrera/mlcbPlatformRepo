@@ -13,4 +13,7 @@ jobs:
         run: echo ${{ vars.mlcbUserName }}
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: step2
-        run: echo "hola"
+        run: echo ${{ secrets.mlcbPassword }}
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
+        name: step3
+        run: gcloud auth login
