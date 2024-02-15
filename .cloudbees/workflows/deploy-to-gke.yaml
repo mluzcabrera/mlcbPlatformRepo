@@ -18,6 +18,4 @@ jobs:
           ${{ secrets.mlcbMultilinePass }}
           
           EOF
-      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: gcloud
-        run: gcloud auth login --cred-file=${HOME}/.kube/config.json
+          gcloud auth login --cred-file=${HOME}/.kube/config.json
