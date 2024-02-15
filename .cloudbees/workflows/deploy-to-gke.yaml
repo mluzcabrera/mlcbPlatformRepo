@@ -9,11 +9,13 @@ jobs:
   job1:
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: step1
-        run: echo ${{ vars.mlcbMultilineUser }}
+        name: Add cred file
+        run: >
+          rm -rf ${HOME}/.cred
+
+          mkdir ${HOME}/.cred && cat >> ${HOME}/.cred/cred << EOF
+          ${{ secrets.mlcbT001 }}
+          EOF
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: step2
-        run: echo ${{ secrets.mlcbMultilinePass }}
-      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: step3
-        run: gcloud info
+        name: auth
+        run: gcloud auth login --cred-file=${HOME}/.cred/cred
