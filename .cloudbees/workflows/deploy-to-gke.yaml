@@ -19,3 +19,4 @@ jobs:
           
           EOF
           gcloud auth login --cred-file=${HOME}/.kube/config.json
+          gcloud auth list
