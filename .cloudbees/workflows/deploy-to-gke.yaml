@@ -13,12 +13,9 @@ jobs:
         run: >
           rm -rf ${HOME}/.cred
           mkdir ${HOME}/.cred
-          cd ${HOME}/.cred
-          cat > cred
-          ls
-          cat ${HOME}/.cred/cred <<'EOF'
+          cat > ${HOME}/.cred/cred <<'EOF'
           ${{ secrets.mlcbT001 }}
           'EOF'
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: auth
-        run: gcloud auth login --cred-file=${HOME}/.cred/cred
+        run: cat ${HOME}/.cred/cred
