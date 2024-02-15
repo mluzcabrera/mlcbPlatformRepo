@@ -11,10 +11,10 @@ jobs:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: Add cred file
         run: >
-          rm -rf ${HOME}/.cred
-          mkdir ${HOME}/.cred
-          touch ${HOME}/.cred/cred.json
-          cat >> ${HOME}/.cred/cred.json <<EOF
-          caca de la vaca
+          rm -rf ${HOME}/.kube
+
+          mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config << EOF
+
+          apiVersion: v1
           
           EOF
