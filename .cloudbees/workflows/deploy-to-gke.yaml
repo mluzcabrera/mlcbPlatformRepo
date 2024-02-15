@@ -16,4 +16,5 @@ jobs:
           touch ${HOME}/.cred/cred.json
           cat >> ${HOME}/.cred/cred.json <<EOF
           caca de la vaca
+          
           EOF
