@@ -13,9 +13,7 @@ jobs:
         run: >
           rm -rf ${HOME}/.cred
           mkdir ${HOME}/.cred
-          touch ${HOME}/.cred/cred 
-          cd ${HOME}/.cred
-          echo 123456
-      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: auth
-        run: cat ${HOME}/.cred/cred
+          touch ${HOME}/.cred/cred.json
+          cat >> ${HOME}/.cred/cred.json <<EOF
+          caca de la vaca
+          EOF
