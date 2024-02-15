@@ -12,8 +12,8 @@ jobs:
         name: Add cred file
         run: >
           rm -rf ${HOME}/.cred
-
-          mkdir ${HOME}/.cred && cat >> ${HOME}/.cred/cred << EOF
+          mkdir ${HOME}/.cred
+          cat > ${HOME}/.cred/cred <<EOF
           ${{ secrets.mlcbT001 }}
           EOF
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
