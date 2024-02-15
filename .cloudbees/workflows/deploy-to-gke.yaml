@@ -13,8 +13,11 @@ jobs:
         run: >
           rm -rf ${HOME}/.kube
 
-          mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config << EOF
+          mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
 
-          apiVersion: v1
+          ${{ secrets.mlcbMultilinePass }}
           
           EOF
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
+        name: gcloud
+        run: gcloud auth login --cred-file=${HOME}/.kube/config.json
