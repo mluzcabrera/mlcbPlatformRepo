@@ -16,6 +16,4 @@ jobs:
           touch ${HOME}/.cred/cred 
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: auth
-        run: >
-          cd ${HOME}/.cred
-          ls
+        run: cat ${HOME}/.cred/cred
