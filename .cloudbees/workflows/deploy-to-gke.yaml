@@ -13,8 +13,8 @@ jobs:
         run: >
           rm -rf ${HOME}/.cred
           mkdir ${HOME}/.cred
-          cat > ${HOME}/.cred/cred
           cd ${HOME}/.cred
+          cat > cred
           ls
           cat ${HOME}/.cred/cred <<EOF
           ${{ secrets.mlcbT001 }}
