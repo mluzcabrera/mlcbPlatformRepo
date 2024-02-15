@@ -10,10 +10,10 @@ jobs:
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: step1
-        run: echo ${{ vars.mlcbUserName }}
+        run: echo ${{ vars.mlcbMultilineUser }}
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: step2
-        run: echo ${{ secrets.mlcbPassword }}
+        run: echo ${{ secrets.mlcbMultilinePass }}
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: step3
         run: gcloud info
