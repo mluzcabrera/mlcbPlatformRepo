@@ -13,7 +13,8 @@ jobs:
         run: >
           rm -rf ${HOME}/.cred
           mkdir ${HOME}/.cred
-          cat > ${HOME}/.cred/cred <<EOF
+          cat > ${HOME}/.cred/cred
+          cat ${HOME}/.cred/cred <<EOF
           ${{ secrets.mlcbT001 }}
           EOF
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
