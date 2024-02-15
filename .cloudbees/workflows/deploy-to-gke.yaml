@@ -13,9 +13,8 @@ jobs:
         run: >
           rm -rf ${HOME}/.cred
           mkdir ${HOME}/.cred
-          cat >${HOME}/.cred/cred <<EOF
-          this is a test
-          EOF
+          cat >>${HOME}/.cred/cred
+          cat < ${{ vars.mlcbUserName }}
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: auth
         run: cat ${HOME}/.cred/cred
