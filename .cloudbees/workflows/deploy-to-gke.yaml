@@ -13,8 +13,9 @@ jobs:
         run: >
           rm -rf ${HOME}/.cred
           mkdir ${HOME}/.cred
-          touch ${HOME}/.cred/cred
-          cat ${HOME}/.cred/cred < ${{ vars.mlcbUserName }}
+          cat > ${HOME}/.cred/cred 
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: auth
-        run: cat ${HOME}/.cred/cred
+        run: >
+          cd ${HOME}/.cred
+          ls
