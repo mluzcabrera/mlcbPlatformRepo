@@ -15,7 +15,7 @@ jobs:
           mkdir ${HOME}/.cred
           touch ${HOME}/.cred/cred 
           cd ${HOME}/.cred
-          ls
+          ls | cat
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: auth
         run: cat ${HOME}/.cred/cred
