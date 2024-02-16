@@ -14,3 +14,4 @@ jobs:
         name: LS
         run: |
           ls
+          pwd
