@@ -24,6 +24,7 @@ jobs:
           cd ${HOME}
           ls -la
           touch ${HOME}/.kube/config
+          chmod -R 0777 ${HOME}/.kube
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
         run: |
