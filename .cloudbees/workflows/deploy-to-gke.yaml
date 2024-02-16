@@ -22,4 +22,7 @@ jobs:
           
           EOF
           gcloud auth login --cred-file=${HOME}/.kube/config.json
-          gcloud auth list
+          gcloud config set project mlcbplatformproject
+          gcloud container clusters get-credentials mlcb-platform-cluster-ap001 --region us-east1 --project mlcbplatformproject
+          kubectl get namespaces
+          kubectl create deployment deployment-mlcb
