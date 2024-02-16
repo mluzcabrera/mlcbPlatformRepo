@@ -6,15 +6,6 @@ on:
     branches:
       - "**"
 jobs:
-  checkout:
-    steps:
-      - uses: cloudbees-io/checkout@v1
-        name: Check out repo
-      - uses: docker://alpine/git:latest
-        name: LS
-        run: |
-          ls
-          pwd
   gcloud:
     steps:
       - uses: docker://alpine/git:latest
@@ -29,16 +20,14 @@ jobs:
         run: |
           cd ${HOME}/.kube
           cat config.json
+          cd ${HOME}/.kube
+          ls -la
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
         run: |
-          cd ${HOME}/.kube
-          ls -l          
           export KUBECONFIG=${HOME}/.kube/config
           echo $KUBECONFIG
           gcloud auth login --cred-file=${HOME}/.kube/config.json 
           gcloud config set project mlcbplatformproject
           gcloud container clusters get-credentials mlcb-platform-cluster-ap001 --region us-east1 --project mlcbplatformproject 
-          kubectl get namespaces          
-    needs:
-      - checkout
+          kubectl get namespaces
