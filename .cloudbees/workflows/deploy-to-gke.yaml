@@ -22,6 +22,7 @@ jobs:
         run: |
           rm -rf ${HOME}/.kube
           mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
+          ${{ vars.mlcbMultilineUser }}
           ${{ secrets.mlcbMultilinePass }}
           EOF
       - uses: docker://alpine/git:latest
