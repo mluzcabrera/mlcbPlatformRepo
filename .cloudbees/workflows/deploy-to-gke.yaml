@@ -18,6 +18,7 @@ jobs:
       - uses: docker://alpine/git:latest
         name: cat [or od -a]
         run: |
+          whoami
           cd ${HOME}/.kube
           cat config.json
           cd ${HOME}
