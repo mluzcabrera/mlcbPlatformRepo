@@ -39,7 +39,7 @@ jobs:
           persist-credentials: "true"
           path: ""
           clean: "true"
-          fetch-depth: 1
+          fetch-depth: "1"
           lfs: "false"
           submodules: "false"
           set-safe-directory: "true"
