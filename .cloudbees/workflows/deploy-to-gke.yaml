@@ -22,13 +22,13 @@ jobs:
         run: |
           rm -rf ${HOME}/.kube
           mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
-          ${{ secrets.mlcbMultilinePass }}
+          ${{ secrets.mlcbPassword }}
           EOF
       - uses: docker://alpine/git:latest
-        name: LS
+        name: cat
         run: |
           cd ${HOME}/.kube
-          ls
+          cat config.json
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: Add cred file 2
         run: |
