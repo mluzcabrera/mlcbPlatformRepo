@@ -32,6 +32,7 @@ jobs:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
         run: |
+          cd ${HOME}
           gcloud auth login --cred-file=${HOME}/.kube/config.json 
           gcloud config set project mlcbplatformproject
           gcloud container clusters get-credentials mlcb-platform-cluster-ap001 --region us-east1 --project mlcbplatformproject 
