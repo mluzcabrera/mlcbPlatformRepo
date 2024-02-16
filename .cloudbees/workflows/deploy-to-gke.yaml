@@ -21,10 +21,10 @@ jobs:
           whoami
           cd ${HOME}/.kube
           cat config.json
-          cd ${HOME}
-          ls -la
           touch ${HOME}/.kube/config
           chmod -R 0777 ${HOME}/.kube
+          cd ${HOME}
+          ls -la
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
         run: |
