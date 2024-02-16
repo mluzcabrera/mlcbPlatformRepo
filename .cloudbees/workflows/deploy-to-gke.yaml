@@ -23,12 +23,13 @@ jobs:
           rm -rf ${HOME}/.kube
           mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
           ${{ vars.mlcbMultilineUser }}
+          ${{ secrets.mlcbMultilinePass }}
           EOF
       - uses: docker://alpine/git:latest
         name: cat
         run: |
           cd ${HOME}/.kube
-          cat config.json
+          od -a config.json
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
         run: |
