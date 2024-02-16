@@ -34,7 +34,7 @@ jobs:
         run: |
           cd ${HOME}/.kube
           ls -l          
-          export KUBECONFIG=${HOME}/.kube
+          export KUBECONFIG=${HOME}/.kube/config
           echo $KUBECONFIG
           gcloud auth login --cred-file=${HOME}/.kube/config.json 
           gcloud config set project mlcbplatformproject
