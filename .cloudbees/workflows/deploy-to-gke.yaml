@@ -35,14 +35,14 @@ jobs:
           token: ${{ cloudbees.scm.token }}
           ssh-key: ""
           ssh-known-hosts: ""
-          ssh-strict: true
-          persist-credentials: true
+          ssh-strict: "true"
+          persist-credentials: "true"
           path: ""
-          clean: true
+          clean: "true"
           fetch-depth: 1
-          lfs: false
-          submodules: false
-          set-safe-directory: true
+          lfs: "false"
+          submodules: "false"
+          set-safe-directory: "true"
           github-server-url: ""
           bitbucket-server-url: ""
           gitlab-server-url: ""
