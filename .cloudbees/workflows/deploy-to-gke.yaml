@@ -10,3 +10,6 @@ jobs:
     steps:
       - uses: cloudbees-io/checkout@v1
         name: Check out repo
+      - uses: docker://alpine/git:latest
+        name: LS
+        run: ls
