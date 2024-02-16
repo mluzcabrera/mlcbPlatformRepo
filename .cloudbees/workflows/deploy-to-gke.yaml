@@ -3,7 +3,7 @@ kind: workflow
 name: Build and deploy demo-app
 on:
   push:
-    branches:
+    branchesss:
       - "**"
 jobs:
   job1:
