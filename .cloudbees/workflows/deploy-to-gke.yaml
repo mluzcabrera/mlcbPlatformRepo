@@ -3,7 +3,7 @@ kind: workflow
 name: Build and deploy demo-app
 on:
   push:
-    branchesss:
+    branches:
       - "**"
 jobs:
   job1:
@@ -27,5 +27,5 @@ jobs:
           get-credentials mlcb-platform-cluster-ap001 --region us-east1
           --project mlcbplatformproject kubectl get namespaces kubectl create
           deployment deployment-mlcb
-    needs: job2
-  
+    needs:
+      - job1
