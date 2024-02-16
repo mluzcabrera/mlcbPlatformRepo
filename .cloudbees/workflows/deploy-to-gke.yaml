@@ -32,6 +32,8 @@ jobs:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
         run: |
+          cd ${HOME}/.kube
+          ls -l
           mkdir ${HOME}/.kube/config
           export KUBECONFIG=${HOME}/.kube/config
           echo $KUBECONFIG
