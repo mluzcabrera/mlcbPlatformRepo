@@ -22,7 +22,7 @@ jobs:
         run: |
           rm -rf ${HOME}/.kube
           mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
-          ${{ secrets.mlcbPassword }}
+          ${{ secrets.mlcbMultilinePass }}
           EOF
       - uses: docker://alpine/git:latest
         name: cat
@@ -30,12 +30,11 @@ jobs:
           cd ${HOME}/.kube
           cat config.json
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: Add cred file 2
+        name: GCLOD
         run: |
-          gcloud auth login --cred-file=${HOME}/.kube/config.json gcloud config
-          set project mlcbplatformproject gcloud container clusters
-          get-credentials mlcb-platform-cluster-ap001 --region us-east1
-          --project mlcbplatformproject kubectl get namespaces kubectl create
-          deployment deployment-mlcb
+          gcloud auth login --cred-file=${HOME}/.kube/config.json 
+          gcloud config set project mlcbplatformproject 
+          gcloud container clusters get-credentials mlcb-platform-cluster-ap001 --region us-east1 --project mlcbplatformproject 
+          kubectl get namespaces          
     needs:
       - checkout
