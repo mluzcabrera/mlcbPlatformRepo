@@ -10,9 +10,9 @@ jobs:
     steps:
       - uses: cloudbees-io/checkout@v1
         name: Check out repo
-      - uses:
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: ls
-        run: pwd
+        run: ls
   gcloud:
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
