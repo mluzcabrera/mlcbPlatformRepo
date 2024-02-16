@@ -1,6 +1,6 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: Build and deploy demo-app
+name: deploy-to-gke
 on:
   push:
     branches:
@@ -9,7 +9,7 @@ jobs:
   gcloud:
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: Add cred file
+        name: Create credential file from secret
         run: |
           rm -rf ${HOME}/.kube
           mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
@@ -18,13 +18,8 @@ jobs:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: cat [or od -a]
         run: |
-          whoami
-          cd ${HOME}/.kube
-          cat config.json
           touch ${HOME}/.kube/config
           chmod -R 0777 ${HOME}/.kube
-          cd ${HOME}
-          ls -la
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
         run: |
