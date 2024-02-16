@@ -29,13 +29,12 @@ jobs:
         run: |
           cd ${HOME}/.kube
           cat config.json
-          mkdir ${HOME}/.kube/config
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
         run: |
           cd ${HOME}/.kube
           ls -l          
-          export KUBECONFIG=${HOME}/.kube/config
+          export KUBECONFIG=${HOME}/.kube
           echo $KUBECONFIG
           gcloud auth login --cred-file=${HOME}/.kube/config.json 
           gcloud config set project mlcbplatformproject
