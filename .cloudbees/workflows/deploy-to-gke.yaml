@@ -20,7 +20,7 @@ jobs:
         run: |
           cd ${HOME}/.kube
           cat config.json
-          cd ${HOME}/.kube
+          cd ${HOME}
           ls -la
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
