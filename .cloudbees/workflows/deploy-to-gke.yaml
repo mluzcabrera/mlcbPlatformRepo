@@ -10,10 +10,7 @@ jobs:
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: Add cred file
-        run: gcloud auth list
-      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: Add cred file
-        run: >
+        run:
           rm -rf ${HOME}/.kube
 
           mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
