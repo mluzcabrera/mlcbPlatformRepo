@@ -25,14 +25,14 @@ jobs:
           ${{ secrets.mlcbMultilinePass }}
           EOF
       - uses: docker://alpine/git:latest
-        name: cat
+        name: cat [or od -a]
         run: |
           cd ${HOME}/.kube
-          od -a config.json
+          cat config.json
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: GCLOD
         run: |
-          cd ${HOME}
+          export KUBECONFIG=${HOME}/.kube/config
           gcloud auth login --cred-file=${HOME}/.kube/config.json 
           gcloud config set project mlcbplatformproject
           gcloud container clusters get-credentials mlcb-platform-cluster-ap001 --region us-east1 --project mlcbplatformproject 
