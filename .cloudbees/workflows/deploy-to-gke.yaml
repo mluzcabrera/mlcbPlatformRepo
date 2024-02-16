@@ -16,20 +16,12 @@ jobs:
           ${{ secrets.mlcbMultilinePass }}
           EOF
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: cat [or od -a]
-        run: |
-          touch ${HOME}/.kube/config
-          chmod -R 0777 ${HOME}/.kube
-      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: GCLOD
+        name: Google Cloud authentication and deployment
         run: |
           export KUBECONFIG=${HOME}/.kube/config
           echo $KUBECONFIG
           gcloud auth login --cred-file=${HOME}/.kube/config.json 
           gcloud config set project mlcbplatformproject
           gcloud container clusters get-credentials mlcb-platform-cluster-ap001 --region us-east1 --project mlcbplatformproject 
-          kubectl create deployment deployment-mlcb --image=us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
-          kubectl expose deployment deployment-mlcb --type LoadBalancer --port 80 --target-port 8080
-          kubectl get pods
-          kubectl get service deployment-mlcb
+          
 
