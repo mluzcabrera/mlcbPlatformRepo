@@ -10,24 +10,3 @@ jobs:
     steps:
       - uses: cloudbees-io/checkout@v1
         name: Check out repo
-  gcloud:
-    steps:
-      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: Add cred file
-      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: Add cred file
-        run: >
-          rm -rf ${HOME}/.kube
-          mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
-          ${{ secrets.mlcbMultilinePass }}
-          EOF EOF
-      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        name: Add cred file
-        run: >
-          gcloud auth login --cred-file=${HOME}/.kube/config.json gcloud config
-          set project mlcbplatformproject gcloud container clusters
-          get-credentials mlcb-platform-cluster-ap001 --region us-east1
-          --project mlcbplatformproject kubectl get namespaces kubectl create
-          deployment deployment-mlcb
-    needs:
-      - checkout
