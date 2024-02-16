@@ -18,17 +18,17 @@ jobs:
   gcloud:
     steps:
       - uses: docker://alpine/git:latest
-        name: LS
-        run: |
-          ls
-          pwd
-      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: Add cred file
         run: |
           rm -rf ${HOME}/.kube
           mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
           ${{ secrets.mlcbMultilinePass }}
           EOF
+      - uses: docker://alpine/git:latest
+        name: LS
+        run: |
+          cd ${HOME}/.kube
+          ls
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: Add cred file 2
         run: |
