@@ -8,14 +8,14 @@ on:
 jobs:
   gcloud:
     steps:
-      - uses: docker://alpine/git:latest
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: Add cred file
         run: |
           rm -rf ${HOME}/.kube
           mkdir ${HOME}/.kube && cat >> ${HOME}/.kube/config.json << EOF
           ${{ secrets.mlcbMultilinePass }}
           EOF
-      - uses: docker://alpine/git:latest
+      - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: cat [or od -a]
         run: |
           whoami
@@ -32,6 +32,5 @@ jobs:
           echo $KUBECONFIG
           gcloud auth login --cred-file=${HOME}/.kube/config.json 
           gcloud config set project mlcbplatformproject
-          whoami
-          sudo gcloud container clusters get-credentials mlcb-platform-cluster-ap001 --region us-east1 --project mlcbplatformproject 
+          gcloud container clusters get-credentials mlcb-platform-cluster-ap001 --region us-east1 --project mlcbplatformproject 
           kubectl get namespaces
