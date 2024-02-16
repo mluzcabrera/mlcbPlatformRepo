@@ -11,10 +11,10 @@ jobs:
       deploy: "false"
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        if: ${{ env.deploy == "true"}}
+        if: ${{ env.deploy == 'true'}}
         run: echo "true"
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
-        if: ${{ env.deploy != "true"}}
+        if: ${{ env.deploy != 'true'}}
         run: echo "false"
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: Create credential file from secret
