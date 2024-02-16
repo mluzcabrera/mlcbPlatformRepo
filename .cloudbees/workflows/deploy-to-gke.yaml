@@ -6,11 +6,11 @@ on:
     branches:
       - "**"
 jobs:
-  job1:
+  checkout:
     steps:
       - uses: cloudbees-io/checkout@v1
         name: Check out repo
-  job2:
+  gcloud:
     steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: Add cred file
@@ -28,4 +28,4 @@ jobs:
           --project mlcbplatformproject kubectl get namespaces kubectl create
           deployment deployment-mlcb
     needs:
-      - job1
+      - checkout
