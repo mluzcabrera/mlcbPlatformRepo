@@ -28,21 +28,3 @@ jobs:
     steps:
       - uses: cloudbees-io/checkout@v1
         name: Check out repo
-        with:
-          provider: ${{ cloudbees.scm.provider }}
-          repository: ${{ cloudbees.repository }}
-          ref: ""
-          token: ${{ cloudbees.scm.token }}
-          ssh-key: ""
-          ssh-known-hosts: ""
-          ssh-strict: "true"
-          persist-credentials: "true"
-          path: ""
-          clean: "true"
-          fetch-depth: "1"
-          lfs: "false"
-          submodules: "false"
-          set-safe-directory: "true"
-          github-server-url: ""
-          bitbucket-server-url: ""
-          gitlab-server-url: ""
