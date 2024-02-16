@@ -8,6 +8,10 @@ on:
 jobs:
   job1:
     steps:
+      - uses: cloudbees-io/checkout@v1
+        name: Check out repo
+  job2:
+    steps:
       - uses: docker://kiwigrid/gcloud-kubectl-helm:latest
         name: Add cred file
         run: |-
@@ -24,7 +28,4 @@ jobs:
           --project mlcbplatformproject kubectl get namespaces kubectl create
           deployment deployment-mlcb
     needs: job2
-  job2:
-    steps:
-      - uses: cloudbees-io/checkout@v1
-        name: Check out repo
+  
