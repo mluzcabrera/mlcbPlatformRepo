@@ -29,3 +29,27 @@ jobs:
           OUTPUT2: ${{needs.my-job-1.outputs.output2}}
         uses: docker://alpine:3.18
         run: echo "$OUTPUT1 $OUTPUT2"
+  my-job-3:
+    needs: my-job-1
+    steps:
+      - env:
+          OUTPUT1: ${{needs.my-job-1.outputs.output1}}
+          OUTPUT2: ${{needs.my-job-1.outputs.output2}}
+        uses: docker://alpine:3.18
+        run: echo "$OUTPUT1 $OUTPUT2"
+  my-job-4:
+    needs: my-job-1
+    steps:
+      - env:
+          OUTPUT1: ${{needs.my-job-1.outputs.output1}}
+          OUTPUT2: ${{needs.my-job-1.outputs.output2}}
+        uses: docker://alpine:3.18
+        run: echo "$OUTPUT1 $OUTPUT2"
+  my-job-5:
+    needs: my-job-3
+    steps:
+      - env:
+          OUTPUT1: ${{needs.my-job-1.outputs.output1}}
+          OUTPUT2: ${{needs.my-job-1.outputs.output2}}
+        uses: docker://alpine:3.18
+        run: echo "$OUTPUT1 $OUTPUT2"
