@@ -47,17 +47,3 @@ jobs:
           kubectl delete service deployment-mlcb
 
           kubectl delete deployment deployment-mlcb
-    needs:
-      - name
-  name:
-    steps:
-      - name: delete
-        uses: cloudbees-io/s3-upload-object@v1
-        run: ""
-        with:
-          bucket-name: bucket
-          s3-path: upload
-          file-path: upload
-        shell: ""
-        kind: build
-    environment: ""
