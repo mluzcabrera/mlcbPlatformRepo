@@ -20,6 +20,8 @@ jobs:
         uses: docker://alpine:3.18
         id: step2
         run: echo "from the hive" > "$CLOUDBEES_OUTPUTS/greeting"
+    needs:
+      - aaaa
   my-job-2:
     needs: my-job-1
     steps:
@@ -43,3 +45,15 @@ jobs:
     steps:
       - uses: docker://alpine:3.18
         run: echo "from the hive"
+  aaaa:
+    steps:
+      - name: delete
+        uses: cloudbees-io/s3-upload-object@v1
+        run: ""
+        with:
+          s3-path: upload
+          file-path: upload
+          bucket-name: bucket
+        shell: ""
+        kind: scan
+    environment: ""
