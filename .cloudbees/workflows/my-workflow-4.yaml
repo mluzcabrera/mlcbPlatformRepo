@@ -8,11 +8,30 @@ jobs:
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-          echo "hello world"
+          echo "hello world ${{ inputs.ParamString1 }} ${{ inputs.ParamNum2 }} ${{ inputs.ParamBool3 }} ${{ inputs.ParamChoice4 }}"
 on:
   workflow_dispatch:
     inputs:
-      asdf:
+      ParamString1:
         type: string
-        default: asdf
-        description: adsf
+        default: This is the default val
+        required: true
+        description: String param
+      ParamNum2:
+        type: number
+        default: 663
+        required: true
+        description: Number param
+      ParamBool3:
+        type: boolean
+        default: true
+        required: true
+        description: Boolean param
+      ParamChoice4:
+        type: choice
+        options:
+          - opt1
+          - opt2
+          - opt3
+        default: opt3
+        description: Choice param
